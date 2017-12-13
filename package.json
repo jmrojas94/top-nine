@@ -1,0 +1,31 @@
+{
+  "name": "which-is-closer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "poi src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmrojas94/top-nine.git"
+  },
+  "author": "Juan Rojas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jmrojas94/top-nine/issues"
+  },
+  "homepage": "https://github.com/jmrojas94/top-nine#readme",
+  "dependencies": {
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
+  },
+  "devDependencies": {
+    "babel-plugin-react-require": "^3.0.0",
+    "babel-preset-react-app": "^3.1.0",
+    "node-sass": "^4.7.2",
+    "poi": "^9.5.11",
+    "sass-loader": "^6.0.6"
+  }
+}
