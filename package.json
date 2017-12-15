@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jmrojas94/top-nine.git"
+    "url": "git+https://github.com/jmrojas94/which-is-closer.git"
   },
   "author": "Juan Rojas",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jmrojas94/top-nine/issues"
+    "url": "https://github.com/jmrojas94/which-is-closer/issues"
   },
-  "homepage": "https://github.com/jmrojas94/top-nine#readme",
+  "homepage": "https://github.com/jmrojas94/which-is-closer#readme",
   "dependencies": {
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
