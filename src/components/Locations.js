@@ -10,7 +10,7 @@ export default class Locations extends React.Component {
       <div>
         <div>
           {this.props.children}
-          <button onClick={this.props.addLocationInput.bind(this)}>Add Location</button>
+          <button onClick={this.props.addInput.bind(this)}>Add Location</button>
         </div>
       </div>
     )

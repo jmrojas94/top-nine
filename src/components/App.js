@@ -12,16 +12,22 @@ export default class App extends React.Component {
     this.state = {
       locations: [
         {
-          location: ""
+          location: "",
+          num: 0
         }
       ]
     }
-    this.addLocationInput = this.addLocationInput.bind(this)
+    this.addInput = this.addInput.bind(this)
   }
 
-  addLocationInput = () => {
+  addInput = () => {
+    var newNum = 0
+    if (this.state.locations[this.state.locations.length - 1].num === 0) {
+      newNum = this.state.locations[this.state.locations.length - 1].num + 1
+    }
     var newLocation = {
-      location: ""
+      location: "",
+      num: newNum
     }
     this.setState({
       locations: this.state.locations.concat(newLocation)
@@ -29,11 +35,12 @@ export default class App extends React.Component {
   }
 
   render() {
+    console.log(this.state)
     return (
       <div className="main-wrapper">
-        <Locations locations={this.state.locations} addLocationInput={this.addLocationInput}>
-          {this.state.locations.map((locations) => {
-            return <Input />
+        <Locations locations={this.state.locations} addInput={this.addInput}>
+          {this.state.locations.map((location, i) => {
+            return <Input key={i} num={location.num}/>
           })}
         </Locations>
       </div>
