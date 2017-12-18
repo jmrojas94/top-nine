@@ -24,12 +24,7 @@ export default class App extends React.Component {
   }
 
   addInput = () => {
-    var newNum
-    if (this.state.locations[this.state.locations.length - 1].num === 0) {
-      newNum = 1
-    } else {
-      newNum = this.state.locations[this.state.locations.length - 1].num + 1
-    }
+    var newNum = this.state.locations[this.state.locations.length - 1].num + 1
     var newLocation = {
       location: "",
       num: newNum
