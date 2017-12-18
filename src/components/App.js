@@ -4,6 +4,8 @@ import Input from './Input.js'
 import Locations from './Locations.js'
 import Map from './Map.js'
 
+import update from 'immutability-helper'
+
 import "../styles/app.scss"
 
 export default class App extends React.Component {
@@ -18,20 +20,43 @@ export default class App extends React.Component {
       ]
     }
     this.addInput = this.addInput.bind(this)
+    this.updateLocation = this.updateLocation.bind(this)
   }
 
   addInput = () => {
-    var newNum = 0
+    var newNum
     if (this.state.locations[this.state.locations.length - 1].num === 0) {
+      newNum = 1
+    } else {
       newNum = this.state.locations[this.state.locations.length - 1].num + 1
     }
     var newLocation = {
       location: "",
       num: newNum
     }
-    this.setState({
-      locations: this.state.locations.concat(newLocation)
-    })
+    this.setState(prevState => ({
+      locations: prevState.locations.concat(newLocation)
+    }))
+  }
+
+  getLocationIndex = (num) => {
+    for (var i = 0; i < this.state.locations.length; i++) {
+      if (this.state.locations[i].num === num) {
+        return i
+      }
+    }
+    return -1
+  }
+
+  updateLocation = (num, e) => {
+    var locationNum = this.getLocationIndex(num)
+    var location = update(this.state.locations[locationNum], { location: { $set: e.target.value } })
+    var newLocation = update(this.state.locations, {
+      $splice: [[locationNum, 1, location]]
+    });
+    this.setState(prevState => ({
+      locations: newLocation
+    }))
   }
 
   render() {
@@ -40,7 +65,7 @@ export default class App extends React.Component {
       <div className="main-wrapper">
         <Locations locations={this.state.locations} addInput={this.addInput}>
           {this.state.locations.map((location, i) => {
-            return <Input key={i} num={location.num}/>
+            return <Input key={i} num={location.num} updateLocation={this.updateLocation} />
           })}
         </Locations>
       </div>
