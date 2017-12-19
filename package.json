@@ -19,8 +19,10 @@
   "homepage": "https://github.com/jmrojas94/which-is-closer#readme",
   "dependencies": {
     "immutability-helper": "^2.6.2",
+    "location-autocomplete": "^1.2.1",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.2.0",
+    "react-places-autocomplete": "^5.4.3"
   },
   "devDependencies": {
     "babel-plugin-react-require": "^3.0.0",

@@ -3,6 +3,7 @@ import React from 'react'
 import Input from './Input.js'
 import Locations from './Locations.js'
 import Map from './Map.js'
+import StartingLocationInput from './StartingLocationInput.js'
 
 import update from 'immutability-helper'
 
@@ -15,12 +16,24 @@ export default class App extends React.Component {
       locations: [
         {
           location: "",
-          num: 0
+          num: 0,
+          coordinates: {
+            lat: null,
+            long: null
+          }
         }
-      ]
+      ],
+      startingLocation: {
+        location: "",
+        coordinates: {
+          lat: null,
+          long: null
+        }
+      }
     }
     this.addInput = this.addInput.bind(this)
     this.updateLocation = this.updateLocation.bind(this)
+    this.updateStartingLocation = this.updateStartingLocation.bind(this)
   }
 
   addInput = () => {
@@ -43,24 +56,46 @@ export default class App extends React.Component {
     return -1
   }
 
-  updateLocation = (num, e) => {
+  updateLocation = (location, num) => {
     var locationNum = this.getLocationIndex(num)
-    var location = update(this.state.locations[locationNum], { location: { $set: e.target.value } })
+    var locationCoordinates = {
+      lat: location.autocomplete.getPlace().geometry.location.lat(),
+      long: location.autocomplete.getPlace().geometry.location.lng()
+    }
+    var locationData = update(this.state.locations[locationNum], { location: { $set: location.autocomplete.getPlace().name }, coordinates: { $set: locationCoordinates } })
     var newLocation = update(this.state.locations, {
-      $splice: [[locationNum, 1, location]]
+      $splice: [[locationNum, 1, locationData]]
     });
     this.setState(prevState => ({
       locations: newLocation
     }))
   }
 
+  updateStartingLocation = (location) => {
+    var locationCoordinates = {
+      lat: location.autocomplete.getPlace().geometry.location.lat(),
+      long: location.autocomplete.getPlace().geometry.location.lng()
+    }
+    var newStartingLocation = update(this.state.startingLocation, { location: { $set: location.autocomplete.getPlace().name }, coordinates: { $set: locationCoordinates } })
+    this.setState(prevState => ({
+      startingLocation: newStartingLocation
+    }))
+    // var newStartingLocation = update(this.state.startingLocation, { location: { $set: e.target.value } })
+    // this.setState(prevState => ({
+    //   startingLocation: newStartingLocation
+    // }))
+  }
+
   render() {
     console.log(this.state)
     return (
       <div className="main-wrapper">
+        <StartingLocationInput>
+          <Input num={null} onDropdownSelect={this.updateStartingLocation} />
+        </StartingLocationInput>
         <Locations locations={this.state.locations} addInput={this.addInput}>
           {this.state.locations.map((location, i) => {
-            return <Input key={i} num={location.num} updateLocation={this.updateLocation} />
+            return <Input key={i} num={location.num} onDropdownSelect={this.updateLocation} />
           })}
         </Locations>
       </div>
