@@ -47,6 +47,14 @@ export default class App extends React.Component {
     }))
   }
 
+  getLocationCoordinates = (location) => {
+    var locationCoordinates = {
+      lat: location.autocomplete.getPlace().geometry.location.lat(),
+      long: location.autocomplete.getPlace().geometry.location.lng()
+    }
+    return locationCoordinates
+  }
+
   getLocationIndex = (num) => {
     for (var i = 0; i < this.state.locations.length; i++) {
       if (this.state.locations[i].num === num) {
@@ -58,10 +66,7 @@ export default class App extends React.Component {
 
   updateLocation = (location, num) => {
     var locationNum = this.getLocationIndex(num)
-    var locationCoordinates = {
-      lat: location.autocomplete.getPlace().geometry.location.lat(),
-      long: location.autocomplete.getPlace().geometry.location.lng()
-    }
+    var locationCoordinates = this.getLocationCoordinates(location)
     var locationData = update(this.state.locations[locationNum], { location: { $set: location.autocomplete.getPlace().name }, coordinates: { $set: locationCoordinates } })
     var newLocation = update(this.state.locations, {
       $splice: [[locationNum, 1, locationData]]
@@ -72,24 +77,17 @@ export default class App extends React.Component {
   }
 
   updateStartingLocation = (location) => {
-    var locationCoordinates = {
-      lat: location.autocomplete.getPlace().geometry.location.lat(),
-      long: location.autocomplete.getPlace().geometry.location.lng()
-    }
+    var locationCoordinates = this.getLocationCoordinates(location)
     var newStartingLocation = update(this.state.startingLocation, { location: { $set: location.autocomplete.getPlace().name }, coordinates: { $set: locationCoordinates } })
     this.setState(prevState => ({
       startingLocation: newStartingLocation
     }))
-    // var newStartingLocation = update(this.state.startingLocation, { location: { $set: e.target.value } })
-    // this.setState(prevState => ({
-    //   startingLocation: newStartingLocation
-    // }))
   }
 
   render() {
     console.log(this.state)
     return (
-      <div className="main-wrapper">
+      <div className="main">
         <StartingLocationInput>
           <Input num={null} onDropdownSelect={this.updateStartingLocation} />
         </StartingLocationInput>

@@ -6,7 +6,7 @@ const Input = (props) => (
     name="venue"
     placeholder="Venue Name"
     googleAPIKey="AIzaSyCcMNB423hp9o_GHn9FEEyBtEHu8ZGjYS0"
-    onChange={(e) => { console.log(e.target.value) }}
+    onChange={(e) => { }}
     onDropdownSelect={(location) => { props.onDropdownSelect(location, props.num) }}
   />
 )

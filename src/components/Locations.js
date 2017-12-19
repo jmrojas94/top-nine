@@ -8,10 +8,8 @@ export default class Locations extends React.Component {
   render() {
     return ( 
       <div>
-        <div>
-          {this.props.children}
-          <button onClick={this.props.addInput.bind(this)}>Add Location</button>
-        </div>
+        {this.props.children}
+        <button onClick={this.props.addInput.bind(this)}>Add Location</button>
       </div>
     )
   }
